@@ -1,0 +1,60 @@
+package com.example.belajar4
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+
+class MainActivity : AppCompatActivity(), View.OnClickListener {
+    // deklarasi variabel
+    private lateinit var inputTinggi: EditText
+    private lateinit var btn: Button
+    private lateinit var result: TextView
+    private lateinit var inputLebar: EditText
+    private lateinit var inputPanjang: EditText
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        //inisialisasi variabel
+        inputTinggi = findViewById(R.id.edt_height)
+        btn = findViewById(R.id.btn_result)
+        result = findViewById(R.id.result)
+        inputLebar = findViewById(R.id.edt_width)
+        inputPanjang = findViewById(R.id.edt_length)
+
+        btn.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        if (v?.id == R.id.btn_result) {
+            var tinggi = inputTinggi.text.toString().trim()
+            var lebar = inputLebar.text.toString().trim()
+            var panjang = inputPanjang.text.toString().trim()
+            var check = false
+
+            //type datanya double
+            if (tinggi.isEmpty()) {
+                check = true
+                inputTinggi.error = "Wajib Diisi"
+            }
+            if (lebar.isEmpty()) {
+                check = true
+                inputLebar.error = "Wajib Diisi"
+            }
+            if (panjang.isEmpty()) {
+                check = true
+                inputPanjang.error = "Wajib Diisi"
+            }
+
+            if (!check) {
+                var volume = tinggi.toDouble() * lebar.toDouble() * panjang.toDouble()
+                result.text = volume.toString()
+            }
+        }
+    }
+}
